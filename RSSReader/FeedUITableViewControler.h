@@ -1,5 +1,5 @@
 //
-//  ViewController.h
+//  FeedUITableViewControler.h
 //  RSSReader
 //
 //  Created by Алексей on 04.05.16.
@@ -7,10 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "FeedRKObjectManager.h"
 
-@interface ViewController : UIViewController
-
+@interface FeedUITableViewControler : UITableViewController
 
 @end
-

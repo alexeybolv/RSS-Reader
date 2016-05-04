@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		647F6FA093E1F7A6E539E694 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B517D8834E9775031527C908 /* libPods.a */; };
 		8A09C66C1CD9CF7800FB5EEC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A09C66B1CD9CF7800FB5EEC /* main.m */; };
 		8A09C66F1CD9CF7800FB5EEC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A09C66E1CD9CF7800FB5EEC /* AppDelegate.m */; };
 		8A09C6721CD9CF7800FB5EEC /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A09C6711CD9CF7800FB5EEC /* ViewController.m */; };
@@ -14,9 +15,16 @@
 		8A09C6781CD9CF7800FB5EEC /* RSSReader.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8A09C6761CD9CF7800FB5EEC /* RSSReader.xcdatamodeld */; };
 		8A09C67A1CD9CF7800FB5EEC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8A09C6791CD9CF7800FB5EEC /* Assets.xcassets */; };
 		8A09C67D1CD9CF7800FB5EEC /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A09C67B1CD9CF7800FB5EEC /* LaunchScreen.storyboard */; };
+		8A09C6881CD9D05100FB5EEC /* Feed+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A09C6851CD9D05100FB5EEC /* Feed+CoreDataProperties.m */; };
+		8A09C6891CD9D05100FB5EEC /* Feed.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A09C6871CD9D05100FB5EEC /* Feed.m */; };
+		8A09C68F1CD9D14400FB5EEC /* RKXMLReaderSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A09C68C1CD9D14400FB5EEC /* RKXMLReaderSerialization.m */; };
+		8A09C6901CD9D14400FB5EEC /* XMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A09C68E1CD9D14400FB5EEC /* XMLReader.m */; };
+		8A09C6941CD9F32800FB5EEC /* FeedRKObjectManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A09C6931CD9F32800FB5EEC /* FeedRKObjectManager.m */; };
+		8A09C6981CDA525E00FB5EEC /* FeedUITableViewControler.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A09C6971CDA525E00FB5EEC /* FeedUITableViewControler.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6F7E02412C03E3AE05431C3E /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		8A09C6671CD9CF7800FB5EEC /* RSSReader.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RSSReader.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8A09C66B1CD9CF7800FB5EEC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8A09C66D1CD9CF7800FB5EEC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -28,6 +36,20 @@
 		8A09C6791CD9CF7800FB5EEC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8A09C67C1CD9CF7800FB5EEC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		8A09C67E1CD9CF7800FB5EEC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		8A09C6841CD9D05100FB5EEC /* Feed+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Feed+CoreDataProperties.h"; path = "RSSReader/Feed+CoreDataProperties.h"; sourceTree = "<group>"; };
+		8A09C6851CD9D05100FB5EEC /* Feed+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Feed+CoreDataProperties.m"; path = "RSSReader/Feed+CoreDataProperties.m"; sourceTree = "<group>"; };
+		8A09C6861CD9D05100FB5EEC /* Feed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Feed.h; path = RSSReader/Feed.h; sourceTree = "<group>"; };
+		8A09C6871CD9D05100FB5EEC /* Feed.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Feed.m; path = RSSReader/Feed.m; sourceTree = "<group>"; };
+		8A09C68B1CD9D14400FB5EEC /* RKXMLReaderSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RKXMLReaderSerialization.h; sourceTree = "<group>"; };
+		8A09C68C1CD9D14400FB5EEC /* RKXMLReaderSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RKXMLReaderSerialization.m; sourceTree = "<group>"; };
+		8A09C68D1CD9D14400FB5EEC /* XMLReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = XMLReader.h; sourceTree = "<group>"; };
+		8A09C68E1CD9D14400FB5EEC /* XMLReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = XMLReader.m; sourceTree = "<group>"; };
+		8A09C6921CD9F32800FB5EEC /* FeedRKObjectManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedRKObjectManager.h; sourceTree = "<group>"; };
+		8A09C6931CD9F32800FB5EEC /* FeedRKObjectManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedRKObjectManager.m; sourceTree = "<group>"; };
+		8A09C6961CDA525E00FB5EEC /* FeedUITableViewControler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedUITableViewControler.h; sourceTree = "<group>"; };
+		8A09C6971CDA525E00FB5EEC /* FeedUITableViewControler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedUITableViewControler.m; sourceTree = "<group>"; };
+		8EA8121A29DA383ACAA542E1 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
+		B517D8834E9775031527C908 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -35,17 +57,29 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				647F6FA093E1F7A6E539E694 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7B6B0438FF22289BF906FB9C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				B517D8834E9775031527C908 /* libPods.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		8A09C65E1CD9CF7800FB5EEC = {
 			isa = PBXGroup;
 			children = (
+				8A09C68A1CD9D05900FB5EEC /* CDClass */,
 				8A09C6691CD9CF7800FB5EEC /* RSSReader */,
 				8A09C6681CD9CF7800FB5EEC /* Products */,
+				F49936EA792245BF1FC03CDE /* Pods */,
+				7B6B0438FF22289BF906FB9C /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -60,10 +94,15 @@
 		8A09C6691CD9CF7800FB5EEC /* RSSReader */ = {
 			isa = PBXGroup;
 			children = (
+				8A09C6911CD9D15000FB5EEC /* XMLHelper */,
+				8A09C6921CD9F32800FB5EEC /* FeedRKObjectManager.h */,
+				8A09C6931CD9F32800FB5EEC /* FeedRKObjectManager.m */,
 				8A09C66D1CD9CF7800FB5EEC /* AppDelegate.h */,
 				8A09C66E1CD9CF7800FB5EEC /* AppDelegate.m */,
 				8A09C6701CD9CF7800FB5EEC /* ViewController.h */,
 				8A09C6711CD9CF7800FB5EEC /* ViewController.m */,
+				8A09C6961CDA525E00FB5EEC /* FeedUITableViewControler.h */,
+				8A09C6971CDA525E00FB5EEC /* FeedUITableViewControler.m */,
 				8A09C6731CD9CF7800FB5EEC /* Main.storyboard */,
 				8A09C6791CD9CF7800FB5EEC /* Assets.xcassets */,
 				8A09C67B1CD9CF7800FB5EEC /* LaunchScreen.storyboard */,
@@ -82,6 +121,37 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
+		8A09C68A1CD9D05900FB5EEC /* CDClass */ = {
+			isa = PBXGroup;
+			children = (
+				8A09C6841CD9D05100FB5EEC /* Feed+CoreDataProperties.h */,
+				8A09C6851CD9D05100FB5EEC /* Feed+CoreDataProperties.m */,
+				8A09C6861CD9D05100FB5EEC /* Feed.h */,
+				8A09C6871CD9D05100FB5EEC /* Feed.m */,
+			);
+			name = CDClass;
+			sourceTree = "<group>";
+		};
+		8A09C6911CD9D15000FB5EEC /* XMLHelper */ = {
+			isa = PBXGroup;
+			children = (
+				8A09C68B1CD9D14400FB5EEC /* RKXMLReaderSerialization.h */,
+				8A09C68C1CD9D14400FB5EEC /* RKXMLReaderSerialization.m */,
+				8A09C68D1CD9D14400FB5EEC /* XMLReader.h */,
+				8A09C68E1CD9D14400FB5EEC /* XMLReader.m */,
+			);
+			name = XMLHelper;
+			sourceTree = "<group>";
+		};
+		F49936EA792245BF1FC03CDE /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8EA8121A29DA383ACAA542E1 /* Pods.debug.xcconfig */,
+				6F7E02412C03E3AE05431C3E /* Pods.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -89,9 +159,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8A09C6811CD9CF7800FB5EEC /* Build configuration list for PBXNativeTarget "RSSReader" */;
 			buildPhases = (
+				AFD52320BB221CF6059E375B /* Check Pods Manifest.lock */,
 				8A09C6631CD9CF7800FB5EEC /* Sources */,
 				8A09C6641CD9CF7800FB5EEC /* Frameworks */,
 				8A09C6651CD9CF7800FB5EEC /* Resources */,
+				5220A699B4E236D79D085F36 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -148,6 +220,39 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		5220A699B4E236D79D085F36 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		AFD52320BB221CF6059E375B /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		8A09C6631CD9CF7800FB5EEC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -155,8 +260,14 @@
 			files = (
 				8A09C6721CD9CF7800FB5EEC /* ViewController.m in Sources */,
 				8A09C6781CD9CF7800FB5EEC /* RSSReader.xcdatamodeld in Sources */,
+				8A09C6981CDA525E00FB5EEC /* FeedUITableViewControler.m in Sources */,
+				8A09C6941CD9F32800FB5EEC /* FeedRKObjectManager.m in Sources */,
+				8A09C6901CD9D14400FB5EEC /* XMLReader.m in Sources */,
+				8A09C68F1CD9D14400FB5EEC /* RKXMLReaderSerialization.m in Sources */,
 				8A09C66F1CD9CF7800FB5EEC /* AppDelegate.m in Sources */,
+				8A09C6891CD9D05100FB5EEC /* Feed.m in Sources */,
 				8A09C66C1CD9CF7800FB5EEC /* main.m in Sources */,
+				8A09C6881CD9D05100FB5EEC /* Feed+CoreDataProperties.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -268,6 +379,7 @@
 		};
 		8A09C6821CD9CF7800FB5EEC /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8EA8121A29DA383ACAA542E1 /* Pods.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = RSSReader/Info.plist;
@@ -279,6 +391,7 @@
 		};
 		8A09C6831CD9CF7800FB5EEC /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6F7E02412C03E3AE05431C3E /* Pods.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = RSSReader/Info.plist;
@@ -307,6 +420,7 @@
 				8A09C6831CD9CF7800FB5EEC /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

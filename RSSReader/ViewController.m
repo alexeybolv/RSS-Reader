@@ -16,12 +16,26 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    // Do any additional setup after loading the view, typically from a nib.
-}
+    
+    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"RSSReader" withExtension:@"momd"];
+    
+    [[FeedRKObjectManager manager] configureWithManagedObjectModel:[[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL]];
+    
+    FeedRKObjectManager *feedManager = [FeedRKObjectManager manager];
+    
+    [feedManager addMappingForEntityForName:@"Feed" andAttributeMappingsFromDictionary:@{@"title.text" : @"feedTitle",@"link.text":@"feedLink",@"description.text":@"feedDescription",@"pubDate.text":@"feedDate",@"media:thumbnail.url":@"feedImageURL",} andIdentificationAttributes:@[@"feedTitle"] andKeyPath:@"rss.channel.item"];
+    
+    [feedManager getFeedObjectsAtPath:@"/feed" success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+     {
+         
+     }
+                              failure:^(RKObjectRequestOperation *operation, NSError *error)
+     {
+         
+     }];
 
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
+    
+    }
+
 
 @end

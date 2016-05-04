@@ -1,16 +1,15 @@
 //
-//  ViewController.h
+//  Feed.m
 //  RSSReader
 //
 //  Created by Алексей on 04.05.16.
 //  Copyright © 2016 Alexey. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import "FeedRKObjectManager.h"
+#import "Feed.h"
 
-@interface ViewController : UIViewController
+@implementation Feed
 
+// Insert code here to add functionality to your managed object subclass
 
 @end
-
