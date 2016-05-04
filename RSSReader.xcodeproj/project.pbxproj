@@ -10,7 +10,6 @@
 		647F6FA093E1F7A6E539E694 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = B517D8834E9775031527C908 /* libPods.a */; };
 		8A09C66C1CD9CF7800FB5EEC /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A09C66B1CD9CF7800FB5EEC /* main.m */; };
 		8A09C66F1CD9CF7800FB5EEC /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A09C66E1CD9CF7800FB5EEC /* AppDelegate.m */; };
-		8A09C6721CD9CF7800FB5EEC /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A09C6711CD9CF7800FB5EEC /* ViewController.m */; };
 		8A09C6751CD9CF7800FB5EEC /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8A09C6731CD9CF7800FB5EEC /* Main.storyboard */; };
 		8A09C6781CD9CF7800FB5EEC /* RSSReader.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 8A09C6761CD9CF7800FB5EEC /* RSSReader.xcdatamodeld */; };
 		8A09C67A1CD9CF7800FB5EEC /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8A09C6791CD9CF7800FB5EEC /* Assets.xcassets */; };
@@ -29,8 +28,6 @@
 		8A09C66B1CD9CF7800FB5EEC /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		8A09C66D1CD9CF7800FB5EEC /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		8A09C66E1CD9CF7800FB5EEC /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		8A09C6701CD9CF7800FB5EEC /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		8A09C6711CD9CF7800FB5EEC /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		8A09C6741CD9CF7800FB5EEC /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8A09C6771CD9CF7800FB5EEC /* RSSReader.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RSSReader.xcdatamodel; sourceTree = "<group>"; };
 		8A09C6791CD9CF7800FB5EEC /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -99,8 +96,6 @@
 				8A09C6931CD9F32800FB5EEC /* FeedRKObjectManager.m */,
 				8A09C66D1CD9CF7800FB5EEC /* AppDelegate.h */,
 				8A09C66E1CD9CF7800FB5EEC /* AppDelegate.m */,
-				8A09C6701CD9CF7800FB5EEC /* ViewController.h */,
-				8A09C6711CD9CF7800FB5EEC /* ViewController.m */,
 				8A09C6961CDA525E00FB5EEC /* FeedUITableViewControler.h */,
 				8A09C6971CDA525E00FB5EEC /* FeedUITableViewControler.m */,
 				8A09C6731CD9CF7800FB5EEC /* Main.storyboard */,
@@ -258,7 +253,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8A09C6721CD9CF7800FB5EEC /* ViewController.m in Sources */,
 				8A09C6781CD9CF7800FB5EEC /* RSSReader.xcdatamodeld in Sources */,
 				8A09C6981CDA525E00FB5EEC /* FeedUITableViewControler.m in Sources */,
 				8A09C6941CD9F32800FB5EEC /* FeedRKObjectManager.m in Sources */,

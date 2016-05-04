@@ -18,18 +18,49 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"RSSReader" withExtension:@"momd"];
+    
+    [[FeedRKObjectManager manager] configureWithManagedObjectModel:[[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL]];
+    
     FeedRKObjectManager *feedManager = [FeedRKObjectManager manager];
     [feedManager addMappingForEntityForName:@"Feed" andAttributeMappingsFromDictionary:@{@"title.text" : @"feedTitle",@"link.text":@"feedLink",@"description.text":@"feedDescription",@"pubDate.text":@"feedDate",@"media:thumbnail.url":@"feedImageURL",} andIdentificationAttributes:@[@"feedTitle"] andKeyPath:@"rss.channel.item"];
-    [feedManager getFeedObjectsAtPath:@"/feed" success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
-     {
-         
-     }
-                              failure:^(RKObjectRequestOperation *operation, NSError *error)
-     {
-         
-     }];
-
     
+    UIActivityIndicatorView *activityIndicator= [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(0, 0, 50, 50)];
+    activityIndicator.layer.cornerRadius = 05;
+    activityIndicator.opaque = NO;
+    activityIndicator.backgroundColor = [UIColor colorWithWhite:0.0f alpha:0.6f];
+    activityIndicator.center = self.view.center;
+    activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+    [activityIndicator setColor:[UIColor colorWithRed:0.6 green:0.8 blue:1.0 alpha:1.0]];
+    [self.view addSubview: activityIndicator];
+    
+    //switch to background thread
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
+        
+        //back to the main thread for the UI call
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [activityIndicator startAnimating];//to start animating
+        });
+        // more on the background thread
+        
+        // parsing code code
+        
+        [feedManager getFeedObjectsAtPath:@"/feed"
+                                  success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult)
+         {
+             
+         }
+                                  failure:^(RKObjectRequestOperation *operation, NSError *error)
+         {
+             
+         }];
+
+        
+        //back to the main thread for the UI call
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [activityIndicator stopAnimating];
+        });
+    });
     
     
     // Uncomment the following line to preserve selection between presentations.
@@ -42,8 +73,7 @@
 #pragma mark - Table view data source
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-#warning Incomplete implementation, return the number of sections
-    return 0;
+    return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
