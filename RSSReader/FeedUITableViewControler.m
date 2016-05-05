@@ -9,8 +9,12 @@
 #import "FeedUITableViewControler.h"
 #import "FeedTableViewCell.h"
 #import "FeedRKObjectManager.h"
+#import "Feed.h"
 
 @interface FeedUITableViewControler ()
+
+@property (strong, nonatomic) IBOutlet UITableView *feedTableView;
+@property (strong,nonatomic) NSArray *feedArray;
 
 @end
 
@@ -23,9 +27,22 @@
     
     [[FeedRKObjectManager manager] configureWithManagedObjectModel:[[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL]];
     
-    FeedRKObjectManager *feedManager = [FeedRKObjectManager manager];
-    [feedManager addMappingForEntityForName:@"Feed" andAttributeMappingsFromDictionary:@{@"title.text" : @"feedTitle",@"link.text":@"feedLink",@"description.text":@"feedDescription",@"pubDate.text":@"feedDate",@"media:thumbnail.url":@"feedImageURL",} andIdentificationAttributes:@[@"feedTitle"] andKeyPath:@"rss.channel.item"];
+    [[FeedRKObjectManager manager] addMappingForEntityForName:@"Feed" andAttributeMappingsFromDictionary:@{@"title.text" : @"feedTitle",@"link.text":@"feedLink",@"description.text":@"feedDescription",@"pubDate.text":@"feedDate",@"media:thumbnail.url":@"feedImageURL",} andIdentificationAttributes:@[@"feedTitle"] andKeyPath:@"rss.channel.item"];
+    //[self loadFeeds];
+    [self fetchFeedsFromContext];
+}
+
+- (void) saveToStore{
+    NSError *saveError;
+    if (![[[FeedRKObjectManager manager] managedObjectContext] saveToPersistentStore:&saveError])
+    {
+        NSLog(@"%@", [saveError localizedDescription]);
+    }
+}
+
+- (void) loadFeeds{
     
+    //Creating activity indicator
     UIActivityIndicatorView *activityIndicator= [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(0, 0, 50, 50)];
     activityIndicator.layer.cornerRadius = 05;
     activityIndicator.opaque = NO;
@@ -38,31 +55,30 @@
     //switch to background thread
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
         
-        //back to the main thread for the UI call
         dispatch_async(dispatch_get_main_queue(), ^{
-            [activityIndicator startAnimating];//to start animating
+            [activityIndicator startAnimating];
         });
-        [feedManager getFeedObjectsAtPath:@"/feed"
-                                  success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult){
-         }
-                                  failure:^(RKObjectRequestOperation *operation, NSError *error){
-         }];
         
-        //back to the main thread for the UI call
+        [[FeedRKObjectManager manager] getFeedObjectsAtPath:@"/feed"
+                                                    success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult){
+                                                    }
+                                                    failure:^(RKObjectRequestOperation *operation, NSError *error){
+                                                    }];
+        
         dispatch_async(dispatch_get_main_queue(), ^{
             [activityIndicator stopAnimating];
         });
     });
-    // Uncomment the following line to preserve selection between presentations.
-    // self.clearsSelectionOnViewWillAppear = NO;
+
 }
 
-- (void) saveToStore{
-    NSError *saveError;
-    if (![[[FeedRKObjectManager manager] managedObjectContext] saveToPersistentStore:&saveError])
-    {
-        NSLog(@"%@", [saveError localizedDescription]);
-    }
+- (void) fetchFeedsFromContext{
+    NSManagedObjectContext *context = [[FeedRKObjectManager manager] managedObjectContext];
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Feed"];
+    
+    NSError *error;
+    _feedArray = [context executeFetchRequest:fetchRequest error:&error];
+    [self.feedTableView reloadData];
 }
 
 
@@ -73,19 +89,17 @@
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-#warning Incomplete implementation, return the number of rows
-    return 0;
+    return _feedArray.count;
 }
 
-/*
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:<#@"reuseIdentifier"#> forIndexPath:indexPath];
-    
-    // Configure the cell...
-    
+    Feed *item = [_feedArray objectAtIndex:indexPath.row];
+    FeedTableViewCell *cell = (FeedTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"TableCellIdentifier" forIndexPath:indexPath];
+    [cell setInternalFields:item];
     return cell;
 }
-*/
+
 
 
 /*

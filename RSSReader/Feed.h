@@ -2,7 +2,7 @@
 //  Feed.h
 //  RSSReader
 //
-//  Created by Алексей on 04.05.16.
+//  Created by Алексей on 05.05.16.
 //  Copyright © 2016 Alexey. All rights reserved.
 //
 

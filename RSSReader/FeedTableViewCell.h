@@ -7,7 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "Feed.h"
 
 @interface FeedTableViewCell : UITableViewCell
+
+@property (weak, nonatomic) IBOutlet UILabel *feedTitle;
+-(void) setInternalFields:(Feed *)incomingEntity;
 
 @end
