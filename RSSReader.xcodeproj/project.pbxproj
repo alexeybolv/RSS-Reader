@@ -20,6 +20,7 @@
 		8A09C6901CD9D14400FB5EEC /* XMLReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A09C68E1CD9D14400FB5EEC /* XMLReader.m */; };
 		8A09C6941CD9F32800FB5EEC /* FeedRKObjectManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A09C6931CD9F32800FB5EEC /* FeedRKObjectManager.m */; };
 		8A09C6981CDA525E00FB5EEC /* FeedUITableViewControler.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A09C6971CDA525E00FB5EEC /* FeedUITableViewControler.m */; };
+		8A09C69B1CDB40B400FB5EEC /* FeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A09C69A1CDB40B400FB5EEC /* FeedTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +46,8 @@
 		8A09C6931CD9F32800FB5EEC /* FeedRKObjectManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedRKObjectManager.m; sourceTree = "<group>"; };
 		8A09C6961CDA525E00FB5EEC /* FeedUITableViewControler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedUITableViewControler.h; sourceTree = "<group>"; };
 		8A09C6971CDA525E00FB5EEC /* FeedUITableViewControler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedUITableViewControler.m; sourceTree = "<group>"; };
+		8A09C6991CDB40B400FB5EEC /* FeedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedTableViewCell.h; sourceTree = "<group>"; };
+		8A09C69A1CDB40B400FB5EEC /* FeedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedTableViewCell.m; sourceTree = "<group>"; };
 		8EA8121A29DA383ACAA542E1 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		B517D8834E9775031527C908 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -98,6 +101,8 @@
 				8A09C66E1CD9CF7800FB5EEC /* AppDelegate.m */,
 				8A09C6961CDA525E00FB5EEC /* FeedUITableViewControler.h */,
 				8A09C6971CDA525E00FB5EEC /* FeedUITableViewControler.m */,
+				8A09C6991CDB40B400FB5EEC /* FeedTableViewCell.h */,
+				8A09C69A1CDB40B400FB5EEC /* FeedTableViewCell.m */,
 				8A09C6731CD9CF7800FB5EEC /* Main.storyboard */,
 				8A09C6791CD9CF7800FB5EEC /* Assets.xcassets */,
 				8A09C67B1CD9CF7800FB5EEC /* LaunchScreen.storyboard */,
@@ -258,6 +263,7 @@
 				8A09C6941CD9F32800FB5EEC /* FeedRKObjectManager.m in Sources */,
 				8A09C6901CD9D14400FB5EEC /* XMLReader.m in Sources */,
 				8A09C68F1CD9D14400FB5EEC /* RKXMLReaderSerialization.m in Sources */,
+				8A09C69B1CDB40B400FB5EEC /* FeedTableViewCell.m in Sources */,
 				8A09C66F1CD9CF7800FB5EEC /* AppDelegate.m in Sources */,
 				8A09C6891CD9D05100FB5EEC /* Feed.m in Sources */,
 				8A09C66C1CD9CF7800FB5EEC /* main.m in Sources */,
