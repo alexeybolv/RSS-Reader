@@ -22,23 +22,24 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.tableView.rowHeight = 200;
     
     NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"RSSReader" withExtension:@"momd"];
     
     [[FeedRKObjectManager manager] configureWithManagedObjectModel:[[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL]];
     
-    [[FeedRKObjectManager manager] addMappingForEntityForName:@"Feed" andAttributeMappingsFromDictionary:@{@"title.text" : @"feedTitle",@"link.text":@"feedLink",@"description.text":@"feedDescription",@"pubDate.text":@"feedDate",@"media:thumbnail.url":@"feedImageURL",} andIdentificationAttributes:@[@"feedTitle"] andKeyPath:@"rss.channel.item"];
-    //[self loadFeeds];
+    [[FeedRKObjectManager manager] addMappingForEntityForName:@"Feed" andAttributeMappingsFromDictionary:@{@"title.text" : @"feedTitle",@"link.text":@"feedLink",@"description.text":@"feedDescription",@"pubDate.text":@"feedDateString",@"media:thumbnail.url":@"feedImageURL",} andIdentificationAttributes:@[@"feedTitle"] andKeyPath:@"rss.channel.item"];
+    [self loadFeeds];
     [self fetchFeedsFromContext];
 }
 
-- (void) saveToStore{
-    NSError *saveError;
-    if (![[[FeedRKObjectManager manager] managedObjectContext] saveToPersistentStore:&saveError])
-    {
-        NSLog(@"%@", [saveError localizedDescription]);
-    }
-}
+//- (void) saveToStore{
+//    NSError *saveError;
+//    if (![[[FeedRKObjectManager manager] managedObjectContext] saveToPersistentStore:&saveError])
+//    {
+//        NSLog(@"%@", [saveError localizedDescription]);
+//    }
+//}
 
 - (void) loadFeeds{
     
@@ -61,8 +62,22 @@
         
         [[FeedRKObjectManager manager] getFeedObjectsAtPath:@"/feed"
                                                     success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult){
+                                                        
+//                                                        self.feedArray = mappingResult.array;
+//                                                        
+//                                                        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+//                                                        [dateFormat setDateFormat:@"EEE, dd MMM yyyy"];
+//                                                        
+//                                                        for (Feed *item in self.feedArray)
+//                                                        {
+//                                                            NSDate *date = [dateFormat dateFromString:item.feedDateString];
+//                                                            item.feedDate = date;
+//                                                            //[self saveToStore];
+//                                                        }
+//
                                                     }
                                                     failure:^(RKObjectRequestOperation *operation, NSError *error){
+                                                        NSLog(@"Error': %@", error);
                                                     }];
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -75,6 +90,9 @@
 - (void) fetchFeedsFromContext{
     NSManagedObjectContext *context = [[FeedRKObjectManager manager] managedObjectContext];
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Feed"];
+    
+//    NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"feedTitle" ascending:YES];
+//    fetchRequest.sortDescriptors = @[descriptor];
     
     NSError *error;
     _feedArray = [context executeFetchRequest:fetchRequest error:&error];
@@ -94,22 +112,37 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    Feed *item = [_feedArray objectAtIndex:indexPath.row];
-    FeedTableViewCell *cell = (FeedTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"TableCellIdentifier" forIndexPath:indexPath];
-    [cell setInternalFields:item];
+    
+    FeedTableViewCell *cell = (FeedTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"CustomCellIdentifier"];
+    if (!cell)
+    {
+        [tableView registerNib:[UINib nibWithNibName:@"CustomViewCell" bundle:nil] forCellReuseIdentifier:@"CustomCellIdentifier"];
+        cell = (FeedTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"CustomCellIdentifier"];
+    }
+    
     return cell;
 }
 
+- (void) tableView:(UITableView *)tableView willDisplayCell:(FeedTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    Feed *item = [_feedArray objectAtIndex:indexPath.row];
+    [cell setInternalFields:item];
+}
+
+- (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    [self performSegueWithIdentifier:@"ShowDetailIdentifier" sender:self];
+}
 
 
-/*
+
+
+
 #pragma mark - Navigation
 
-// In a storyboard-based application, you will often want to do a little preparation before navigation
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
+    [segue destinationViewController];
     // Pass the selected object to the new view controller.
 }
-*/
+
 
 @end

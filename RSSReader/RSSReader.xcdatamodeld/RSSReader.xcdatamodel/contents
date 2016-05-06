@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10171" systemVersion="15E65" minimumToolsVersion="Automatic">
     <entity name="Feed" representedClassName="Feed" syncable="YES">
-        <attribute name="feedDate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="feedDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="feedDateString" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="feedDescription" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="feedImageData" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="feedImageURL" optional="YES" attributeType="String" syncable="YES"/>
@@ -9,6 +10,6 @@
         <attribute name="feedTitle" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Feed" positionX="-45" positionY="0" width="128" height="135"/>
+        <element name="Feed" positionX="-45" positionY="0" width="128" height="150"/>
     </elements>
 </model>

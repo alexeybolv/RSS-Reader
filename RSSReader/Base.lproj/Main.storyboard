@@ -5,7 +5,7 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
     <scenes>
-        <!--Feeds-->
+        <!--auto.onliner.by-->
         <scene sceneID="JLf-RO-lhc">
             <objects>
                 <tableViewController id="Hjs-5h-hHw" customClass="FeedUITableViewControler" sceneMemberID="viewController">
@@ -13,41 +13,39 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TableCellIdentifier" textLabel="y12-CZ-MpW" style="IBUITableViewCellStyleDefault" id="4G5-Z3-dTk" customClass="FeedTableViewCell">
-                                <rect key="frame" x="0.0" y="92" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="4G5-Z3-dTk" id="DAm-WY-VoL">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="y12-CZ-MpW">
-                                            <rect key="frame" x="15" y="0.0" width="345" height="43.5"/>
-                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                </tableViewCellContentView>
-                                <connections>
-                                    <outlet property="feedTitle" destination="y12-CZ-MpW" id="4WB-Ql-hGK"/>
-                                </connections>
-                            </tableViewCell>
-                        </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="Hjs-5h-hHw" id="JUK-bM-yS3"/>
                             <outlet property="delegate" destination="Hjs-5h-hHw" id="YcO-h3-kGb"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Feeds" id="xfk-hu-umO"/>
+                    <navigationItem key="navigationItem" title="auto.onliner.by" id="xfk-hu-umO"/>
                     <connections>
                         <outlet property="feedTableView" destination="wwo-wd-R1c" id="5nd-30-rh1"/>
+                        <segue destination="atj-TX-PDa" kind="show" identifier="ShowDetailIdentifier" id="WN2-v8-DKj"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="deF-rM-VVx" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-129.5" y="244.5"/>
+            <point key="canvasLocation" x="-97.5" y="244.5"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="WAo-fS-tnI">
+            <objects>
+                <viewController id="atj-TX-PDa" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="hKL-lG-KjH"/>
+                        <viewControllerLayoutGuide type="bottom" id="32O-eO-XNp"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="wVb-qp-UtF">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="ejk-ML-lqB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="376.5" y="244.5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="ev0-jq-icB">

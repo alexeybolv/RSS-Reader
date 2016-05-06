@@ -11,7 +11,9 @@
 @implementation FeedTableViewCell
 
 -(void) setInternalFields:(Feed *)incomingEntity{
-    self.feedTitle.text = incomingEntity.feedTitle;
+    self.textView.text = incomingEntity.feedTitle;
+    self.leftLabel.text = incomingEntity.feedDateString;
+    self.feedImageView.image = [UIImage imageNamed:@"123.jpg"];
 }
 
 @end
