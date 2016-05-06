@@ -31,15 +31,16 @@
     [[FeedRKObjectManager manager] addMappingForEntityForName:@"Feed" andAttributeMappingsFromDictionary:@{@"title.text" : @"feedTitle",@"link.text":@"feedLink",@"description.text":@"feedDescription",@"pubDate.text":@"feedDateString",@"media:thumbnail.url":@"feedImageURL",} andIdentificationAttributes:@[@"feedTitle"] andKeyPath:@"rss.channel.item"];
     [self loadFeeds];
     [self fetchFeedsFromContext];
+    
 }
 
-//- (void) saveToStore{
-//    NSError *saveError;
-//    if (![[[FeedRKObjectManager manager] managedObjectContext] saveToPersistentStore:&saveError])
-//    {
-//        NSLog(@"%@", [saveError localizedDescription]);
-//    }
-//}
+- (void) saveToStore{
+    NSError *saveError;
+    if (![[[FeedRKObjectManager manager] managedObjectContext] saveToPersistentStore:&saveError])
+    {
+        NSLog(@"%@", [saveError localizedDescription]);
+    }
+}
 
 - (void) loadFeeds{
     
@@ -63,18 +64,19 @@
         [[FeedRKObjectManager manager] getFeedObjectsAtPath:@"/feed"
                                                     success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult){
                                                         
-//                                                        self.feedArray = mappingResult.array;
-//                                                        
-//                                                        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-//                                                        [dateFormat setDateFormat:@"EEE, dd MMM yyyy"];
-//                                                        
-//                                                        for (Feed *item in self.feedArray)
-//                                                        {
-//                                                            NSDate *date = [dateFormat dateFromString:item.feedDateString];
-//                                                            item.feedDate = date;
-//                                                            //[self saveToStore];
-//                                                        }
-//
+                                                        NSArray *feedInnerArray = mappingResult.array;
+                                                        
+                                                        NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
+                                                        [dateFormat setDateFormat:@"EEE, dd MMM yyyy HH:mm:ss ZZZ"];
+                                                        
+                                                        for (Feed *item in feedInnerArray)
+                                                        {
+                                                            NSDate *date = [dateFormat dateFromString:item.feedDateString];
+                                                            NSLog(@"date = %@",date);
+                                                            item.feedDate = date;
+                                                            [self saveToStore];
+                                                        }
+
                                                     }
                                                     failure:^(RKObjectRequestOperation *operation, NSError *error){
                                                         NSLog(@"Error': %@", error);
@@ -91,8 +93,8 @@
     NSManagedObjectContext *context = [[FeedRKObjectManager manager] managedObjectContext];
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Feed"];
     
-//    NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"feedTitle" ascending:YES];
-//    fetchRequest.sortDescriptors = @[descriptor];
+    NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"feedDate" ascending:NO];
+    fetchRequest.sortDescriptors = @[descriptor];
     
     NSError *error;
     _feedArray = [context executeFetchRequest:fetchRequest error:&error];
@@ -132,9 +134,6 @@
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     [self performSegueWithIdentifier:@"ShowDetailIdentifier" sender:self];
 }
-
-
-
 
 
 #pragma mark - Navigation
