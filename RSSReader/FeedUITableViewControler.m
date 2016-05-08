@@ -74,7 +74,6 @@
                                                             [self loadThumbnailFromURLString:item.feedImageURL forFeed:item];
                                                             [self saveToStore];
                                                         }
-                                                        [self fetchFeedsFromContext];
                                                     }
                                                     failure:^(RKObjectRequestOperation *operation, NSError *error){
                                                         NSLog(@"Error': %@", error);
@@ -104,7 +103,8 @@
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]]];
     [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         feed.feedImageData = responseObject;
-        [self saveToStore];
+        [self fetchFeedsFromContext];
+        [self.tableView reloadData];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", [error localizedDescription]);
     }];

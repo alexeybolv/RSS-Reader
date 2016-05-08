@@ -20,7 +20,6 @@
 		8A09C6981CDA525E00FB5EEC /* FeedUITableViewControler.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A09C6971CDA525E00FB5EEC /* FeedUITableViewControler.m */; };
 		8A09C69B1CDB40B400FB5EEC /* FeedTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A09C69A1CDB40B400FB5EEC /* FeedTableViewCell.m */; };
 		8A09C6AB1CDBD80500FB5EEC /* CustomViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 8A09C6AA1CDBD80500FB5EEC /* CustomViewCell.xib */; };
-		8A09C6AD1CDBF22200FB5EEC /* 123.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 8A09C6AC1CDBF22200FB5EEC /* 123.jpg */; };
 		8A09C6C11CDC946C00FB5EEC /* Feed+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A09C6BE1CDC946C00FB5EEC /* Feed+CoreDataProperties.m */; };
 		8A09C6C21CDC946C00FB5EEC /* Feed.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A09C6C01CDC946C00FB5EEC /* Feed.m */; };
 /* End PBXBuildFile section */
@@ -47,7 +46,6 @@
 		8A09C6991CDB40B400FB5EEC /* FeedTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FeedTableViewCell.h; sourceTree = "<group>"; };
 		8A09C69A1CDB40B400FB5EEC /* FeedTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FeedTableViewCell.m; sourceTree = "<group>"; };
 		8A09C6AA1CDBD80500FB5EEC /* CustomViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomViewCell.xib; sourceTree = "<group>"; };
-		8A09C6AC1CDBF22200FB5EEC /* 123.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 123.jpg; sourceTree = "<group>"; };
 		8A09C6BD1CDC946C00FB5EEC /* Feed+CoreDataProperties.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Feed+CoreDataProperties.h"; path = "RSSReader/Feed+CoreDataProperties.h"; sourceTree = "<group>"; };
 		8A09C6BE1CDC946C00FB5EEC /* Feed+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Feed+CoreDataProperties.m"; path = "RSSReader/Feed+CoreDataProperties.m"; sourceTree = "<group>"; };
 		8A09C6BF1CDC946C00FB5EEC /* Feed.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Feed.h; path = RSSReader/Feed.h; sourceTree = "<group>"; };
@@ -113,7 +111,6 @@
 				8A09C67B1CD9CF7800FB5EEC /* LaunchScreen.storyboard */,
 				8A09C67E1CD9CF7800FB5EEC /* Info.plist */,
 				8A09C6761CD9CF7800FB5EEC /* RSSReader.xcdatamodeld */,
-				8A09C6AC1CDBF22200FB5EEC /* 123.jpg */,
 				8A09C66A1CD9CF7800FB5EEC /* Supporting Files */,
 			);
 			path = RSSReader;
@@ -219,7 +216,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				8A09C67D1CD9CF7800FB5EEC /* LaunchScreen.storyboard in Resources */,
-				8A09C6AD1CDBF22200FB5EEC /* 123.jpg in Resources */,
 				8A09C6AB1CDBD80500FB5EEC /* CustomViewCell.xib in Resources */,
 				8A09C67A1CD9CF7800FB5EEC /* Assets.xcassets in Resources */,
 				8A09C6751CD9CF7800FB5EEC /* Main.storyboard in Resources */,

@@ -13,9 +13,7 @@
 -(void) setInternalFields:(Feed *)incomingEntity{
     self.textView.text = [self newTitleWithoutTagFromString:incomingEntity.feedTitle];
     self.leftLabel.text = [self shortDateToStringFromDate:incomingEntity.feedDate];
-    //self.feedImageView.contentMode = UIViewContentModeScaleAspectFill;
     self.feedImageView.image = [UIImage imageWithData:incomingEntity.feedImageData];
-    //self.feedImageView.image = [UIImage imageNamed:@"123.jpg"];
 }
 
 -(NSString *) newTitleWithoutTagFromString:(NSString *)myStr

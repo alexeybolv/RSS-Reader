@@ -20,8 +20,6 @@
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSLog(@"%@",[paths objectAtIndex:0]);
     
-    //Test GitHub
-    
     return YES;
 }
 
