@@ -30,8 +30,6 @@
     
     [[FeedRKObjectManager manager] addMappingForEntityForName:@"Feed" andAttributeMappingsFromDictionary:@{@"title.text" : @"feedTitle",@"link.text":@"feedLink",@"description.text":@"feedDescription",@"pubDate.text":@"feedDateString",@"media:thumbnail.url":@"feedImageURL",} andIdentificationAttributes:@[@"feedTitle"] andKeyPath:@"rss.channel.item"];
     [self loadFeeds];
-    [self fetchFeedsFromContext];
-    
 }
 
 - (void) saveToStore{
@@ -64,22 +62,23 @@
         [[FeedRKObjectManager manager] getFeedObjectsAtPath:@"/feed"
                                                     success:^(RKObjectRequestOperation *operation, RKMappingResult *mappingResult){
                                                         
-                                                        NSArray *feedInnerArray = mappingResult.array;
+                                                        NSArray *requestArray = mappingResult.array;
                                                         
                                                         NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
                                                         [dateFormat setDateFormat:@"EEE, dd MMM yyyy HH:mm:ss ZZZ"];
                                                         
-                                                        for (Feed *item in feedInnerArray)
+                                                        for (Feed *item in requestArray)
                                                         {
                                                             NSDate *date = [dateFormat dateFromString:item.feedDateString];
-                                                            NSLog(@"date = %@",date);
                                                             item.feedDate = date;
+                                                            [self loadThumbnailFromURLString:item.feedImageURL forFeed:item];
                                                             [self saveToStore];
                                                         }
-
+                                                        [self fetchFeedsFromContext];
                                                     }
                                                     failure:^(RKObjectRequestOperation *operation, NSError *error){
                                                         NSLog(@"Error': %@", error);
+                                                        [self fetchFeedsFromContext];
                                                     }];
         
         dispatch_async(dispatch_get_main_queue(), ^{
@@ -99,6 +98,17 @@
     NSError *error;
     _feedArray = [context executeFetchRequest:fetchRequest error:&error];
     [self.feedTableView reloadData];
+}
+
+- (void)loadThumbnailFromURLString:(NSString *)urlString forFeed:(Feed *)feed {
+    AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]]];
+    [operation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
+        feed.feedImageData = responseObject;
+        [self saveToStore];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"%@", [error localizedDescription]);
+    }];
+    [operation start];
 }
 
 
@@ -121,7 +131,6 @@
         [tableView registerNib:[UINib nibWithNibName:@"CustomViewCell" bundle:nil] forCellReuseIdentifier:@"CustomCellIdentifier"];
         cell = (FeedTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"CustomCellIdentifier"];
     }
-    
     return cell;
 }
 
@@ -142,6 +151,15 @@
     [segue destinationViewController];
     // Pass the selected object to the new view controller.
 }
+
+
+//-(NSString *) newDescriptionbyStrippingHTMLFromString:(NSString *)myStr
+//{
+//    NSRange r;
+//    while ((r = [myStr rangeOfString:@"<[^>]+>" options:NSRegularExpressionSearch]).location != NSNotFound)
+//        myStr = [myStr stringByReplacingCharactersInRange:r withString:@""];
+//    return myStr;
+//}
 
 
 @end
