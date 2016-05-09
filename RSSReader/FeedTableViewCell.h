@@ -11,10 +11,11 @@
 
 @interface FeedTableViewCell : UITableViewCell
 
+@property (strong,nonatomic) Feed *localFeedEntity;
 
-@property (weak, nonatomic) IBOutlet UILabel *leftLabel;
-@property (weak, nonatomic) IBOutlet UITextView *textView;
+@property (weak, nonatomic) IBOutlet UILabel *feedDateLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *feedImageView;
+@property (weak, nonatomic) IBOutlet UITextView *feedTitleTextView;
 
 
 -(void) setInternalFields:(Feed *)incomingEntity;

@@ -11,9 +11,10 @@
 @implementation FeedTableViewCell
 
 -(void) setInternalFields:(Feed *)incomingEntity{
-    self.textView.text = [self newTitleWithoutTagFromString:incomingEntity.feedTitle];
-    self.leftLabel.text = [self shortDateToStringFromDate:incomingEntity.feedDate];
+    self.feedTitleTextView.text = [self newTitleWithoutTagFromString:incomingEntity.feedTitle];
+    self.feedDateLabel.text = [self shortDateToStringFromDate:incomingEntity.feedDate];
     self.feedImageView.image = [UIImage imageWithData:incomingEntity.feedImageData];
+    self.localFeedEntity = incomingEntity;
 }
 
 -(NSString *) newTitleWithoutTagFromString:(NSString *)myStr

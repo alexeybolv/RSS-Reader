@@ -10,6 +10,7 @@
 #import "FeedTableViewCell.h"
 #import "FeedRKObjectManager.h"
 #import "Feed.h"
+#import "FeedDetailViewController.h"
 
 @interface FeedUITableViewControler ()
 
@@ -22,6 +23,7 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"onliner_logo.png"]];
     self.tableView.rowHeight = 200;
     
     NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"RSSReader" withExtension:@"momd"];
@@ -105,6 +107,7 @@
         feed.feedImageData = responseObject;
         [self fetchFeedsFromContext];
         [self.tableView reloadData];
+        [self saveToStore];
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         NSLog(@"%@", [error localizedDescription]);
     }];
@@ -141,25 +144,20 @@
 }
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    [self performSegueWithIdentifier:@"ShowDetailIdentifier" sender:self];
+//    [self performSegueWithIdentifier:@"ShowDetailIdentifier" sender:self];
+    [self performSegueWithIdentifier:@"ShowDetailIdentifier" sender:[tableView cellForRowAtIndexPath:indexPath]];
 }
 
 
 #pragma mark - Navigation
 
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    [segue destinationViewController];
-    // Pass the selected object to the new view controller.
+    FeedDetailViewController *child = (FeedDetailViewController *)[segue destinationViewController];
+    Feed *item;
+    FeedTableViewCell *source = (FeedTableViewCell *)sender;
+    item = source.localFeedEntity;
+    [child receiveFeedEntity:item];
 }
-
-
-//-(NSString *) newDescriptionbyStrippingHTMLFromString:(NSString *)myStr
-//{
-//    NSRange r;
-//    while ((r = [myStr rangeOfString:@"<[^>]+>" options:NSRegularExpressionSearch]).location != NSNotFound)
-//        myStr = [myStr stringByReplacingCharactersInRange:r withString:@""];
-//    return myStr;
-//}
 
 
 @end
