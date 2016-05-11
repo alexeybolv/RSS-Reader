@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10117" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CustomCellIdentifier" id="sa6-ws-Up9" customClass="FeedTableViewCell">
+            <rect key="frame" x="0.0" y="0.0" width="667" height="345"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="sa6-ws-Up9" id="seR-3p-Qer">
+                <rect key="frame" x="0.0" y="0.0" width="667" height="344.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Mok-py-AAZ">
+                        <rect key="frame" x="0.0" y="39" width="667" height="297.5"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="297.5" id="SxB-LL-zqS"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LUZ-N8-Nhc">
+                        <rect key="frame" x="8" y="8" width="651" height="23"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.69999999999999996" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Hxi-rp-LXL">
+                        <rect key="frame" x="0.0" y="239" width="667" height="90"/>
+                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                    </textView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="Hxi-rp-LXL" firstAttribute="top" secondItem="LUZ-N8-Nhc" secondAttribute="bottom" constant="208" id="13h-zG-uQR"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="Mok-py-AAZ" secondAttribute="trailing" constant="-8" id="1us-qG-mGn"/>
+                    <constraint firstItem="LUZ-N8-Nhc" firstAttribute="top" secondItem="seR-3p-Qer" secondAttribute="topMargin" id="3HW-sJ-jU6"/>
+                    <constraint firstItem="Hxi-rp-LXL" firstAttribute="leading" secondItem="seR-3p-Qer" secondAttribute="leadingMargin" constant="-8" id="87H-sE-FBv"/>
+                    <constraint firstItem="Mok-py-AAZ" firstAttribute="top" secondItem="LUZ-N8-Nhc" secondAttribute="bottom" constant="8" id="Aap-RQ-Wj8"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="Hxi-rp-LXL" secondAttribute="bottom" constant="7.5" id="DcW-d3-NGs"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="Hxi-rp-LXL" secondAttribute="trailing" constant="-8" id="J0p-mL-U6K"/>
+                    <constraint firstItem="LUZ-N8-Nhc" firstAttribute="leading" secondItem="seR-3p-Qer" secondAttribute="leadingMargin" id="UT3-RX-UBF"/>
+                    <constraint firstItem="Mok-py-AAZ" firstAttribute="leading" secondItem="seR-3p-Qer" secondAttribute="leadingMargin" constant="-8" id="WEe-VE-47q"/>
+                    <constraint firstItem="LUZ-N8-Nhc" firstAttribute="trailing" secondItem="seR-3p-Qer" secondAttribute="trailingMargin" id="eMr-BD-cjp"/>
+                    <constraint firstItem="Mok-py-AAZ" firstAttribute="bottom" secondItem="seR-3p-Qer" secondAttribute="bottomMargin" id="yUa-LG-dfO"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="feedDateLabel" destination="LUZ-N8-Nhc" id="rWo-eG-b9K"/>
+                <outlet property="feedImageView" destination="Mok-py-AAZ" id="JBS-ok-wYu"/>
+                <outlet property="feedTitleTextView" destination="Hxi-rp-LXL" id="AhX-cO-2tS"/>
+            </connections>
+            <point key="canvasLocation" x="345.5" y="309.5"/>
+        </tableViewCell>
+    </objects>
+</document>
