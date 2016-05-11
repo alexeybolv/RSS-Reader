@@ -9,12 +9,11 @@
 #import "FeedDetailViewController.h"
 
 @interface FeedDetailViewController ()
-{
-    UIActivityIndicatorView *activityIndicator;
-}
+
 @property (strong,nonatomic) Feed *localFeedEntity;
 @property (strong,nonatomic) UIWebView *webView;
 @property (weak, nonatomic) IBOutlet UIButton *safariButton;
+@property (strong,nonatomic) UIActivityIndicatorView *activityIndicator;
 
 @end
 
@@ -23,22 +22,34 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    self.automaticallyAdjustsScrollViewInsets = false;
-    self.feedImageView.image = [[UIImage alloc]initWithData:self.localFeedEntity.feedImageData];
-    
+    [self setImageViewFromData:self.localFeedEntity.feedImageData];
+    [self setAttributedText];
+}
+
+- (void) viewWillLayoutSubviews
+{
+    [self.feedDescriptionTextView setContentOffset:CGPointZero animated:NO];
+}
+
+-(void) receiveFeedEntity:(Feed *)incomingFeedEntity{
+    self.localFeedEntity = incomingFeedEntity;
+}
+
+
+#pragma mark - setting up data performance
+
+-(void) setImageViewFromData:(NSData *)imageData{
+    self.feedImageView.image = [[UIImage alloc]initWithData:imageData];
+}
+
+-(void) setAttributedText{
     NSMutableAttributedString *attributedString =
     [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ \n\n  %@",[self newTitleWithoutTagFromString:self.localFeedEntity.feedTitle],[self newDescriptionbyStrippingHTMLFromString:self.localFeedEntity.feedDescription]]];
     
     [attributedString addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"Georgia-Bold" size:20 ] range:NSMakeRange(0, self.localFeedEntity.feedTitle.length)];
     
     [attributedString addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"Georgia" size:16 ] range:NSMakeRange([self newTitleWithoutTagFromString:self.localFeedEntity.feedTitle].length+5, [self newDescriptionbyStrippingHTMLFromString:self.localFeedEntity.feedDescription].length)];
-
-    self.feedDescriptionTextView.textAlignment = NSTextAlignmentRight;
     self.feedDescriptionTextView.attributedText = attributedString;
-}
-
--(void) receiveFeedEntity:(Feed *)incomingFeedEntity{
-    self.localFeedEntity = incomingFeedEntity;
 }
 
 -(NSString *) newDescriptionbyStrippingHTMLFromString:(NSString *)myStr
@@ -75,14 +86,14 @@
     [self.webView loadRequest:request];
     [self.view addSubview:self.webView];
     
-    activityIndicator = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(0, 0, 50, 50)];
-    activityIndicator.layer.cornerRadius = 05;
-    activityIndicator.opaque = NO;
-    activityIndicator.backgroundColor = [UIColor colorWithWhite:0.0f alpha:0.6f];
-    activityIndicator.center = self.view.center;
-    activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
-    [activityIndicator setColor:[UIColor colorWithRed:0.6 green:0.8 blue:1.0 alpha:1.0]];
-    [self.webView addSubview: activityIndicator];
+    self.activityIndicator = [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(0, 0, 50, 50)];
+    self.activityIndicator.layer.cornerRadius = 05;
+    self.activityIndicator.opaque = NO;
+    self.activityIndicator.backgroundColor = [UIColor colorWithWhite:0.0f alpha:0.6f];
+    self.activityIndicator.center = self.view.center;
+    self.activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+    [self.activityIndicator setColor:[UIColor colorWithRed:0.6 green:0.8 blue:1.0 alpha:1.0]];
+    [self.webView addSubview: self.activityIndicator];
 }
 
 -(void) doneWithWebView:(id)sender{
@@ -91,18 +102,22 @@
     self.navigationItem.rightBarButtonItem = nil;
 }
 
+- (void) willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    self.webView = [[UIWebView alloc]initWithFrame:self.view.bounds];
+    self.activityIndicator.center = self.webView.center;
+}
 
 #pragma mark - Web View Delegate
 
 -(void) webViewDidStartLoad:(UIWebView *)webView{
-    [activityIndicator startAnimating];
-    UIBarButtonItem *anotherButton = [[UIBarButtonItem alloc] initWithTitle:@"Close Safari" style:UIBarButtonItemStylePlain target:self action:@selector(doneWithWebView:)];
-    self.navigationItem.rightBarButtonItem = anotherButton;
-    anotherButton = nil;
+    [self.activityIndicator startAnimating];
+    UIBarButtonItem *closeSafariButton = [[UIBarButtonItem alloc] initWithTitle:@"Close Safari" style:UIBarButtonItemStylePlain target:self action:@selector(doneWithWebView:)];
+    self.navigationItem.rightBarButtonItem = closeSafariButton;
+    closeSafariButton = nil;
 }
 
 -(void) webViewDidFinishLoad:(UIWebView *)webView{
-    [activityIndicator stopAnimating];
+    [self.activityIndicator stopAnimating];
 }
 
 @end

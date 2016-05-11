@@ -18,6 +18,8 @@
 @property (strong, nonatomic) IBOutlet UITableView *feedTableView;
 @property (strong,nonatomic) NSArray *feedArray;
 @property (nonatomic) Reachability *internetReachability;
+@property (strong,nonatomic) NSMutableArray *indexArray;
+@property (strong,nonatomic) UIActivityIndicatorView *activityIndicator;
 
 @end
 
@@ -25,9 +27,17 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"onliner_logo.png"]];
-    self.tableView.rowHeight = 200;
     
+    self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"onliner_logo.png"]];
+    
+    if (UIDeviceOrientationIsPortrait([UIDevice currentDevice].orientation))
+    {
+        self.tableView.rowHeight = 200;
+    }
+    else if (UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation))
+    {
+        self.tableView.rowHeight = 345;
+    }
     
     // setting up Mapping and Loading
     NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"RSSReader" withExtension:@"momd"];
@@ -36,7 +46,6 @@
     
     [[FeedRKObjectManager manager] addMappingForEntityForName:@"Feed" andAttributeMappingsFromDictionary:@{@"title.text" : @"feedTitle",@"link.text":@"feedLink",@"description.text":@"feedDescription",@"pubDate.text":@"feedDateString",@"media:thumbnail.url":@"feedImageURL",} andIdentificationAttributes:@[@"feedTitle"] andKeyPath:@"rss.channel.item"];
     [self loadFeeds];
-    
     
     // setting up Reachability
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
@@ -52,37 +61,31 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kReachabilityChangedNotification object:nil];
 }
 
+#pragma mark - Parsing Feeds
+
 - (IBAction)refreshButton:(id)sender {
     [self checkReachability:self.internetReachability];
     [self loadFeeds];
 }
 
 
-- (void) saveToStore{
-    NSError *saveError;
-    if (![[[FeedRKObjectManager manager] managedObjectContext] saveToPersistentStore:&saveError])
-    {
-        NSLog(@"%@", [saveError localizedDescription]);
-    }
-}
-
 - (void) loadFeeds{
     
     //Creating activity indicator
-    UIActivityIndicatorView *activityIndicator= [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(0, 0, 50, 50)];
-    activityIndicator.layer.cornerRadius = 05;
-    activityIndicator.opaque = NO;
-    activityIndicator.backgroundColor = [UIColor colorWithWhite:0.0f alpha:0.6f];
-    activityIndicator.center = self.view.center;
-    activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
-    [activityIndicator setColor:[UIColor colorWithRed:0.6 green:0.8 blue:1.0 alpha:1.0]];
-    [self.view addSubview: activityIndicator];
+    self.activityIndicator= [[UIActivityIndicatorView alloc]initWithFrame:CGRectMake(0, 0, 50, 50)];
+    self.activityIndicator.layer.cornerRadius = 05;
+    self.activityIndicator.opaque = NO;
+    self.activityIndicator.backgroundColor = [UIColor colorWithWhite:0.0f alpha:0.6f];
+    self.activityIndicator.center = self.feedTableView.center;
+    self.activityIndicator.activityIndicatorViewStyle = UIActivityIndicatorViewStyleGray;
+    [self.activityIndicator setColor:[UIColor colorWithRed:0.6 green:0.8 blue:1.0 alpha:1.0]];
+    [self.view addSubview: self.activityIndicator];
     
     //switch to background thread
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0), ^{
         
         dispatch_async(dispatch_get_main_queue(), ^{
-            [activityIndicator startAnimating];
+            [self.activityIndicator startAnimating];
         });
         
         [[FeedRKObjectManager manager] getFeedObjectsAtPath:@"/feed"
@@ -100,30 +103,20 @@
                                                             [self loadThumbnailFromURLString:item.feedImageURL forFeed:item];
                                                             [self saveToStore];
                                                         }
+                                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                                            [self.activityIndicator stopAnimating];
+                                                        });
                                                     }
                                                     failure:^(RKObjectRequestOperation *operation, NSError *error){
                                                         NSLog(@"Error': %@", error);
                                                         [self fetchFeedsFromContext];
+                                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                                            [self.activityIndicator stopAnimating];
+                                                        });
                                                     }];
-        
-        dispatch_async(dispatch_get_main_queue(), ^{
-            [activityIndicator stopAnimating];
-        });
     });
-
 }
 
-- (void) fetchFeedsFromContext{
-    NSManagedObjectContext *context = [[FeedRKObjectManager manager] managedObjectContext];
-    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Feed"];
-    
-    NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"feedDate" ascending:NO];
-    fetchRequest.sortDescriptors = @[descriptor];
-    
-    NSError *error;
-    _feedArray = [context executeFetchRequest:fetchRequest error:&error];
-    [self.feedTableView reloadData];
-}
 
 - (void)loadThumbnailFromURLString:(NSString *)urlString forFeed:(Feed *)feed {
     AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:urlString]]];
@@ -138,13 +131,36 @@
     [operation start];
 }
 
+#pragma mark - Core Data
+
+- (void) saveToStore{
+    NSError *saveError;
+    if (![[[FeedRKObjectManager manager] managedObjectContext] saveToPersistentStore:&saveError])
+    {
+        NSLog(@"%@", [saveError localizedDescription]);
+    }
+}
+
+- (void) fetchFeedsFromContext{
+    NSManagedObjectContext *context = [[FeedRKObjectManager manager] managedObjectContext];
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:@"Feed"];
+    
+    NSSortDescriptor *descriptor = [NSSortDescriptor sortDescriptorWithKey:@"feedDate" ascending:NO];
+    fetchRequest.sortDescriptors = @[descriptor];
+    
+    NSError *error;
+    _feedArray = [context executeFetchRequest:fetchRequest error:&error];
+    [self.feedTableView reloadData];
+}
+
+
+
 #pragma mark - Reachability
 
 - (void) reachabilityChanged:(NSNotification *)note
 {
     Reachability* curReach = [note object];
     [self checkReachability:curReach];
-    
 }
 
 -(void) checkReachability:(Reachability *)reachability{
@@ -183,16 +199,53 @@
     return _feedArray.count;
 }
 
-
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     FeedTableViewCell *cell = (FeedTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"CustomCellIdentifier"];
-    if (!cell)
-    {
-        [tableView registerNib:[UINib nibWithNibName:@"CustomViewCell" bundle:nil] forCellReuseIdentifier:@"CustomCellIdentifier"];
-        cell = (FeedTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"CustomCellIdentifier"];
+    
+    if (!cell) {
+        if (UIDeviceOrientationIsPortrait([UIDevice currentDevice].orientation))
+        {
+            [tableView registerNib:[UINib nibWithNibName:@"CustomViewCell-Portrait" bundle:nil] forCellReuseIdentifier:@"CustomCellIdentifier"];
+            [self.indexArray addObject:indexPath];
+        }
+        else if (UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation))
+        {
+            [tableView registerNib:[UINib nibWithNibName:@"CustomViewCell-Landscape" bundle:nil] forCellReuseIdentifier:@"CustomCellIdentifier"];
+            [self.indexArray addObject:indexPath];
+        }
     }
+    cell = (FeedTableViewCell *)[tableView dequeueReusableCellWithIdentifier:@"CustomCellIdentifier"];
     return cell;
+}
+
+
+
+- (void) willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+    
+    if (UIDeviceOrientationIsPortrait([UIDevice currentDevice].orientation))
+    {
+        self.tableView.rowHeight = 200;
+        [self.feedTableView registerNib:[UINib nibWithNibName:@"CustomViewCell-Portrait" bundle:nil] forCellReuseIdentifier:@"CustomCellIdentifier"];
+    }
+    else
+    {
+        self.tableView.rowHeight = 345;
+        [self.feedTableView registerNib:[UINib nibWithNibName:@"CustomViewCell-Landscape" bundle:nil] forCellReuseIdentifier:@"CustomCellIdentifier"];
+    }
+    self.activityIndicator.center = self.feedTableView.center;
+    
+    [self.tableView reloadRowsAtIndexPaths:[self indexPathsForTableView:self.feedTableView] withRowAnimation:UITableViewRowAnimationRight];
+    [self.feedTableView reloadSections:[NSIndexSet indexSetWithIndex:0] withRowAnimation:UITableViewRowAnimationRight];
+}
+
+- (NSMutableArray *) indexPathsForTableView:(UITableView *)tableView{
+    NSMutableArray *indexArray = [[NSMutableArray alloc]init];
+    for (int i = 0;i<self.feedArray.count;i++)
+    {
+        [indexArray addObject:[NSIndexPath indexPathForRow:i inSection:0]];
+    }
+    return indexArray;
 }
 
 - (void) tableView:(UITableView *)tableView willDisplayCell:(FeedTableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
@@ -202,7 +255,6 @@
 }
 
 - (void) tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-//    [self performSegueWithIdentifier:@"ShowDetailIdentifier" sender:self];
     [self performSegueWithIdentifier:@"ShowDetailIdentifier" sender:[tableView cellForRowAtIndexPath:indexPath]];
 }
 

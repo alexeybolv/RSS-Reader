@@ -28,7 +28,7 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="feedTableView" destination="wwo-wd-R1c" id="5nd-30-rh1"/>
+                        <outlet property="feedTableView" destination="wwo-wd-R1c" id="dIi-KP-zjO"/>
                         <segue destination="atj-TX-PDa" kind="show" identifier="ShowDetailIdentifier" id="WN2-v8-DKj"/>
                     </connections>
                 </tableViewController>
@@ -98,7 +98,7 @@
                             <constraint firstItem="BVU-DG-L1S" firstAttribute="leading" secondItem="wVb-qp-UtF" secondAttribute="leadingMargin" constant="-16" id="dxO-WP-kG6"/>
                             <constraint firstItem="fEn-O0-0OG" firstAttribute="top" secondItem="hKL-lG-KjH" secondAttribute="bottom" id="eLr-xW-gBH"/>
                             <constraint firstItem="fEn-O0-0OG" firstAttribute="leading" secondItem="wVb-qp-UtF" secondAttribute="leadingMargin" constant="-16" id="hJq-Xm-hIr"/>
-                            <constraint firstItem="fEn-O0-0OG" firstAttribute="width" secondItem="wVb-qp-UtF" secondAttribute="width" multiplier="0.4" id="iZc-tX-nkw"/>
+                            <constraint firstItem="fEn-O0-0OG" firstAttribute="width" secondItem="wVb-qp-UtF" secondAttribute="width" multiplier="0.5" id="iZc-tX-nkw"/>
                             <constraint firstItem="BVU-DG-L1S" firstAttribute="top" secondItem="hKL-lG-KjH" secondAttribute="bottom" constant="224" id="lgF-Xp-nJz"/>
                             <constraint firstItem="8GF-QH-lm6" firstAttribute="top" secondItem="fEn-O0-0OG" secondAttribute="bottom" constant="8" id="mX9-o7-gic"/>
                             <constraint firstAttribute="trailingMargin" secondItem="BVU-DG-L1S" secondAttribute="trailing" constant="-16" id="ptu-5W-ust"/>

@@ -24,12 +24,12 @@
                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                         <nil key="highlightedColor"/>
                     </label>
-                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.65000000000000002" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="mrC-KJ-gG7">
-                        <rect key="frame" x="0.0" y="117" width="320" height="66"/>
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" alpha="0.69999999999999996" contentMode="scaleToFill" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="mrC-KJ-gG7">
+                        <rect key="frame" x="0.0" y="93" width="320" height="90"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="height" constant="66" id="AgQ-DN-cV9"/>
-                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="66" id="Q6c-Fu-h6n"/>
+                            <constraint firstAttribute="height" constant="90" id="AgQ-DN-cV9"/>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="90" id="Q6c-Fu-h6n"/>
                         </constraints>
                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <fontDescription key="fontDescription" type="system" pointSize="16"/>
