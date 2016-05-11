@@ -11,11 +11,13 @@
 #import "FeedRKObjectManager.h"
 #import "Feed.h"
 #import "FeedDetailViewController.h"
+#import "Reachability.h"
 
 @interface FeedUITableViewControler ()
 
 @property (strong, nonatomic) IBOutlet UITableView *feedTableView;
 @property (strong,nonatomic) NSArray *feedArray;
+@property (nonatomic) Reachability *internetReachability;
 
 @end
 
@@ -26,13 +28,35 @@
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"onliner_logo.png"]];
     self.tableView.rowHeight = 200;
     
+    
+    // setting up Mapping and Loading
     NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"RSSReader" withExtension:@"momd"];
     
     [[FeedRKObjectManager manager] configureWithManagedObjectModel:[[NSManagedObjectModel alloc] initWithContentsOfURL:modelURL]];
     
     [[FeedRKObjectManager manager] addMappingForEntityForName:@"Feed" andAttributeMappingsFromDictionary:@{@"title.text" : @"feedTitle",@"link.text":@"feedLink",@"description.text":@"feedDescription",@"pubDate.text":@"feedDateString",@"media:thumbnail.url":@"feedImageURL",} andIdentificationAttributes:@[@"feedTitle"] andKeyPath:@"rss.channel.item"];
     [self loadFeeds];
+    
+    
+    // setting up Reachability
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reachabilityChanged:) name:kReachabilityChangedNotification object:nil];
+    
+    self.internetReachability = [Reachability reachabilityForInternetConnection];
+    [self.internetReachability startNotifier];
+    [self checkReachability:self.internetReachability];
+
 }
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self name:kReachabilityChangedNotification object:nil];
+}
+
+- (IBAction)refreshButton:(id)sender {
+    [self checkReachability:self.internetReachability];
+    [self loadFeeds];
+}
+
 
 - (void) saveToStore{
     NSError *saveError;
@@ -113,6 +137,40 @@
     }];
     [operation start];
 }
+
+#pragma mark - Reachability
+
+- (void) reachabilityChanged:(NSNotification *)note
+{
+    Reachability* curReach = [note object];
+    [self checkReachability:curReach];
+    
+}
+
+-(void) checkReachability:(Reachability *)reachability{
+    NetworkStatus netStatus = [reachability currentReachabilityStatus];
+    if (netStatus == NotReachable)
+    {
+        UIAlertController *internetConnectionController = [UIAlertController alertControllerWithTitle:@"Problem" message:@"Please, switch on the Internet to parse latest news and press refresh" preferredStyle:UIAlertControllerStyleAlert];
+        [self presentViewController:internetConnectionController animated:YES completion:nil];
+        
+        UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleDefault handler:nil];
+        
+        UIAlertAction *settingsAction = [UIAlertAction actionWithTitle:@"Settings" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+            [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString]];
+        }];
+        
+        UIAlertAction *retryAction = [UIAlertAction actionWithTitle:@"Retry" style:UIAlertActionStyleDefault handler:^(UIAlertAction *action){
+            [self checkReachability:self.internetReachability];
+            [self loadFeeds];
+        }];
+        
+        [internetConnectionController addAction:settingsAction];
+        [internetConnectionController addAction:retryAction];
+        [internetConnectionController addAction:cancelAction];
+    }
+}
+
 
 
 #pragma mark - Table view data source

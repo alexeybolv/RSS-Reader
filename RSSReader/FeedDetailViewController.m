@@ -14,6 +14,7 @@
 }
 @property (strong,nonatomic) Feed *localFeedEntity;
 @property (strong,nonatomic) UIWebView *webView;
+@property (weak, nonatomic) IBOutlet UIButton *safariButton;
 
 @end
 
@@ -22,15 +23,17 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     
+    self.automaticallyAdjustsScrollViewInsets = false;
     self.feedImageView.image = [[UIImage alloc]initWithData:self.localFeedEntity.feedImageData];
     
     NSMutableAttributedString *attributedString =
-    [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ \n\n\n\n  %@",[self newTitleWithoutTagFromString:self.localFeedEntity.feedTitle],[self newDescriptionbyStrippingHTMLFromString:self.localFeedEntity.feedDescription]]];
+    [[NSMutableAttributedString alloc] initWithString:[NSString stringWithFormat:@"%@ \n\n  %@",[self newTitleWithoutTagFromString:self.localFeedEntity.feedTitle],[self newDescriptionbyStrippingHTMLFromString:self.localFeedEntity.feedDescription]]];
     
-    [attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor redColor] range:NSMakeRange(0, self.localFeedEntity.feedTitle.length)];
+    [attributedString addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"Georgia-Bold" size:20 ] range:NSMakeRange(0, self.localFeedEntity.feedTitle.length)];
     
-    [attributedString addAttribute:NSForegroundColorAttributeName value:[UIColor blueColor] range:NSMakeRange([self newTitleWithoutTagFromString:self.localFeedEntity.feedTitle].length+7, [self newDescriptionbyStrippingHTMLFromString:self.localFeedEntity.feedDescription].length)];
+    [attributedString addAttribute:NSFontAttributeName value:[UIFont fontWithName:@"Georgia" size:16 ] range:NSMakeRange([self newTitleWithoutTagFromString:self.localFeedEntity.feedTitle].length+5, [self newDescriptionbyStrippingHTMLFromString:self.localFeedEntity.feedDescription].length)];
 
+    self.feedDescriptionTextView.textAlignment = NSTextAlignmentRight;
     self.feedDescriptionTextView.attributedText = attributedString;
 }
 
@@ -65,7 +68,7 @@
 }
 
 -(void) webViewWithURL:(NSString *)url{
-    self.webView=[[UIWebView alloc]initWithFrame:self.view.bounds];
+    self.webView = [[UIWebView alloc]initWithFrame:self.view.bounds];
     self.webView.scalesPageToFit = YES;
     [self.webView setDelegate:self];
     NSURLRequest *request=[NSURLRequest requestWithURL:[NSURL URLWithString:url]];
@@ -99,14 +102,6 @@
 }
 
 -(void) webViewDidFinishLoad:(UIWebView *)webView{
-//    CGSize contentSize = self.webView.scrollView.contentSize;
-//    CGSize viewSize = self.webView.bounds.size;
-//    
-//    float rw = viewSize.width / contentSize.width;
-//    
-//    self.webView.scrollView.minimumZoomScale = rw;
-//    self.webView.scrollView.maximumZoomScale = rw;
-//    self.webView.scrollView.zoomScale = rw;
     [activityIndicator stopAnimating];
 }
 
