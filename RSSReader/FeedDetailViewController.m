@@ -103,7 +103,7 @@
 }
 
 - (void) willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-    self.webView = [[UIWebView alloc]initWithFrame:self.view.bounds];
+    [self.webView setFrame:self.view.bounds];
     self.activityIndicator.center = self.webView.center;
 }
 
