@@ -16,6 +16,7 @@
 @interface FeedUITableViewControler ()
 
 @property (strong, nonatomic) IBOutlet UITableView *feedTableView;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *refreshButton;
 @property (strong,nonatomic) NSArray *feedArray;
 @property (nonatomic) Reachability *internetReachability;
 @property (strong,nonatomic) NSMutableArray *indexArray;
@@ -29,15 +30,6 @@
     [super viewDidLoad];
     
     self.navigationItem.titleView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"onliner_logo.png"]];
-    
-    if (UIDeviceOrientationIsPortrait([UIDevice currentDevice].orientation))
-    {
-        self.tableView.rowHeight = 200;
-    }
-    else if (UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation))
-    {
-        self.tableView.rowHeight = 345;
-    }
     
     // setting up Mapping and Loading
     NSURL *modelURL = [[NSBundle mainBundle] URLForResource:@"RSSReader" withExtension:@"momd"];
@@ -53,7 +45,18 @@
     self.internetReachability = [Reachability reachabilityForInternetConnection];
     [self.internetReachability startNotifier];
     [self checkReachability:self.internetReachability];
+}
 
+- (void) viewWillAppear:(BOOL)animated
+{
+    if (UIDeviceOrientationIsPortrait([UIDevice currentDevice].orientation))
+    {
+        self.tableView.rowHeight = 200;
+    }
+    else if (UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation))
+    {
+        self.tableView.rowHeight = 345;
+    }
 }
 
 - (void)dealloc
@@ -61,7 +64,7 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self name:kReachabilityChangedNotification object:nil];
 }
 
-#pragma mark - Parsing Feeds
+#pragma mark - Parsing Feed
 
 - (IBAction)refreshButton:(id)sender {
     [self checkReachability:self.internetReachability];
@@ -86,6 +89,7 @@
         
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.activityIndicator startAnimating];
+            self.refreshButton.enabled = false;
         });
         
         [[FeedRKObjectManager manager] getFeedObjectsAtPath:@"/feed"
@@ -105,6 +109,7 @@
                                                         }
                                                         dispatch_async(dispatch_get_main_queue(), ^{
                                                             [self.activityIndicator stopAnimating];
+                                                            self.refreshButton.enabled = true;
                                                         });
                                                     }
                                                     failure:^(RKObjectRequestOperation *operation, NSError *error){
@@ -112,6 +117,7 @@
                                                         [self fetchFeedsFromContext];
                                                         dispatch_async(dispatch_get_main_queue(), ^{
                                                             [self.activityIndicator stopAnimating];
+                                                            self.refreshButton.enabled = true;
                                                         });
                                                     }];
     });

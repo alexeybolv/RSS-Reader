@@ -110,14 +110,18 @@
 #pragma mark - Web View Delegate
 
 -(void) webViewDidStartLoad:(UIWebView *)webView{
-    [self.activityIndicator startAnimating];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.activityIndicator startAnimating];
+    });
     UIBarButtonItem *closeSafariButton = [[UIBarButtonItem alloc] initWithTitle:@"Close Safari" style:UIBarButtonItemStylePlain target:self action:@selector(doneWithWebView:)];
     self.navigationItem.rightBarButtonItem = closeSafariButton;
     closeSafariButton = nil;
 }
 
 -(void) webViewDidFinishLoad:(UIWebView *)webView{
-    [self.activityIndicator stopAnimating];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.activityIndicator stopAnimating];
+    });
 }
 
 @end

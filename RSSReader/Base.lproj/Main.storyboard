@@ -29,6 +29,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="feedTableView" destination="wwo-wd-R1c" id="dIi-KP-zjO"/>
+                        <outlet property="refreshButton" destination="Eii-hA-Wqp" id="q1s-00-EHU"/>
                         <segue destination="atj-TX-PDa" kind="show" identifier="ShowDetailIdentifier" id="WN2-v8-DKj"/>
                     </connections>
                 </tableViewController>
@@ -48,7 +49,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8GF-QH-lm6">
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8GF-QH-lm6">
                                 <rect key="frame" x="20" y="629" width="335" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="33" id="hZ6-gV-NBx"/>
@@ -71,10 +72,10 @@
                                     <action selector="openSafariButton:" destination="atj-TX-PDa" eventType="touchUpInside" id="AxR-Bx-1Ra"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fEn-O0-0OG">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fEn-O0-0OG">
                                 <rect key="frame" x="0.0" y="72" width="375" height="211"/>
                             </imageView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="BVU-DG-L1S">
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" editable="NO" textAlignment="justified" translatesAutoresizingMaskIntoConstraints="NO" id="BVU-DG-L1S">
                                 <rect key="frame" x="0.0" y="291" width="375" height="330"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <fontDescription key="fontDescription" name="KannadaSangamMN" family="Kannada Sangam MN" pointSize="18"/>

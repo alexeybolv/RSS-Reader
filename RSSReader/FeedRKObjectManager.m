@@ -6,7 +6,6 @@
 //  Copyright © 2016 Alexey. All rights reserved.
 //
 
-#import <RestKit/RestKit.h>
 #import "FeedRKObjectManager.h"
 #import "RKXMLReaderSerialization.h"
 
